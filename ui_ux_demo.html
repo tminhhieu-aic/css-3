@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo CSS Pseudo-class – UI/UX</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        color: #243247;
+        background: #f4f7fb;
+    }
+
+    .page-header {
+        padding: 36px 20px;
+        color: white;
+        background: #244a7c;
+    }
+
+    .header-inner, main {
+        width: min(1100px, 92%);
+        margin: 0 auto;
+    }
+
+    h1 {
+        margin: 0 0 8px;
+        font-size: 30px;
+    }
+
+    .page-header p {
+        margin: 0;
+        color: #e0eaf7;
+    }
+
+    main {
+        padding: 28px 0 48px;
+    }
+
+    section {
+        margin-bottom: 28px;
+        padding: 24px;
+        background: white;
+        border: 1px solid #dce4ee;
+        border-radius: 12px;
+    }
+
+    h2 {
+        margin: 0 0 6px;
+        font-size: 22px;
+        color: #244a7c;
+    }
+
+    .section-intro {
+        margin: 0 0 20px;
+        color: #5d6b7d;
+    }
+
+    h3 {
+        margin: 0 0 8px;
+        font-size: 17px;
+    }
+
+    .demo-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .demo-card {
+        flex: 1 1 220px;
+        min-width: 0;
+        padding: 18px;
+        border: 1px solid #dce4ee;
+        border-radius: 10px;
+        background: #fff;
+    }
+
+    .demo-card p {
+        margin: 0 0 14px;
+        color: #5d6b7d;
+        font-size: 14px;
+    }
+
+    .demo-card.shadow-hover {
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .demo-card.shadow-hover:hover {
+        box-shadow: 0 8px 22px rgba(36, 74, 124, 0.16);
+        transform: translateY(-2px);
+    }
+
+    .border-hover {
+        border: 2px solid #dce4ee;
+        transition: border-color 0.2s ease;
+    }
+
+    .border-hover:hover {
+        border-color: #2878c8;
+    }
+
+    .text-hover {
+        color: #34445a;
+        transition: color 0.2s ease;
+    }
+
+    .text-hover:hover {
+        color: #2878c8;
+    }
+
+    .underline-hover {
+        color: #2878c8;
+        text-decoration: none;
+    }
+
+    .underline-hover:hover {
+        text-decoration: underline;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        border: 1px solid transparent;
+        border-radius: 7px;
+        font: inherit;
+        font-size: 14px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-primary {
+        color: white;
+        background: #2878c8;
+    }
+
+    .btn-primary:hover {
+        background: #e5f1ff;
+        color: #205f9f;
+        border-color: #b8d9fb;
+    }
+
+    .btn-primary:active {
+        background: #cfe5fc;
+        transform: translateY(1px);
+    }
+
+    .btn-outline {
+        color: #2878c8;
+        background: white;
+        border-color: #2878c8;
+    }
+
+    .btn-outline:hover {
+        color: white;
+        background: #2878c8;
+    }
+
+    .btn:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+        outline: 3px solid #f3bd4e;
+        outline-offset: 3px;
+    }
+
+    .sample-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .sample-table th, .sample-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #e1e7ef;
+        text-align: left;
+    }
+
+    .sample-table th {
+        background: #edf3fa;
+        color: #244a7c;
+    }
+
+    .sample-table tbody tr {
+        transition: background-color 0.15s ease;
+    }
+
+    .sample-table tbody tr:hover {
+        background: #f0f2f5;
+    }
+
+    .cursor-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .cursor-item {
+        flex: 1 1 145px;
+        padding: 13px;
+        border: 1px solid #dce4ee;
+        border-radius: 8px;
+        background: #fbfcfe;
+        text-align: center;
+    }
+
+    .cursor-item strong {
+        display: block;
+        color: #244a7c;
+    }
+
+    .cursor-pointer { cursor: pointer; }
+    .cursor-wait { cursor: wait; }
+    .cursor-text { cursor: text; }
+    .cursor-not-allowed { cursor: not-allowed; }
+    .cursor-help { cursor: help; }
+    .cursor-move { cursor: move; }
+    .cursor-crosshair { cursor: crosshair; }
+    .cursor-grab { cursor: grab; }
+    .cursor-zoom-in { cursor: zoom-in; }
+    .cursor-default { cursor: default; }
+
+    .form-demo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    .form-field {
+        flex: 1 1 250px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    input[type="text"], input[type="email"], select, textarea {
+        width: 100%;
+        padding: 11px 12px;
+        border: 1px solid #bfcbd9;
+        border-radius: 7px;
+        font: inherit;
+        background: white;
+        color: #243247;
+    }
+
+    input:hover, select:hover, textarea:hover {
+        border-color: #7898bd;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        border-color: #2878c8;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(40, 120, 200, 0.13);
+    }
+
+    .hint {
+        margin: 6px 0 0;
+        color: #6a7889;
+        font-size: 13px;
+    }
+
+    .choice-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 12px 0;
+    }
+
+    .choice {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid #dce4ee;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .choice:hover {
+        background: #f4f8fd;
+        border-color: #9dbfe4;
+    }
+
+    .choice input:checked + span {
+        color: #205f9f;
+        font-weight: bold;
+    }
+
+    .choice:has(input:checked) {
+        background: #edf6ff;
+        border-color: #6aa5e5;
+    }
+
+    .disabled-demo {
+        padding: 12px 14px;
+        border: 1px solid #dce4ee;
+        border-radius: 8px;
+    }
+
+    .disabled-demo input:disabled {
+        background: #edf0f4;
+        color: #8792a0;
+        cursor: not-allowed;
+    }
+
+    .disabled-demo button:disabled {
+        color: #8b95a3;
+        background: #e6e9ee;
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+
+    details {
+        padding: 14px;
+        border: 1px solid #dce4ee;
+        border-radius: 8px;
+        background: #fbfcfe;
+    }
+
+    summary {
+        color: #244a7c;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    details[open] {
+        background: #f1f7ff;
+        border-color: #a9c9ed;
+    }
+
+    .status-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .status {
+        padding: 8px 12px;
+        border-radius: 6px;
+        background: #f1f4f8;
+    }
+
+    .status:first-child {
+        border-left: 4px solid #2878c8;
+    }
+
+    .status:last-child {
+        border-left: 4px solid #2c9b68;
+    }
+
+    .status:nth-child(even) {
+        background: #eaf3ff;
+    }
+
+    code {
+        padding: 2px 5px;
+        border-radius: 4px;
+        color: #8b3b22;
+        background: #f7eee9;
+        font-size: 0.93em;
+    }
+
+    .note {
+        padding: 12px 14px;
+        border-left: 4px solid #e2aa35;
+        border-radius: 4px;
+        background: #fff8e7;
+        color: #66501d;
+    }
+
+    footer {
+        padding: 20px;
+        text-align: center;
+        color: #68788b;
+        font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+        h1 { font-size: 25px; }
+        section { padding: 18px; }
+        .sample-table th, .sample-table td { padding: 9px 8px; }
+    }
+</style>
+</head>
+<body>
+<header class="page-header">
+    <div class="header-inner">
+        <h1>CSS Pseudo-class cho UI/UX</h1>
+    </div>
+</header>
+
+<main>
+    <section>
+        <h2>1. Các hiệu ứng hover thường gặp</h2>
+        <p class="section-intro">Di chuột lên từng ví dụ để xem giao diện phản hồi như thế nào.</p>
+        <div class="demo-grid">
+            <article class="demo-card shadow-hover">
+                <h3>Đổi shadow</h3>
+                <p>Card nổi bật hơn khi rê chuột vào.</p>
+                <code>.card:hover</code>
+            </article>
+            <article class="demo-card border-hover">
+                <h3>Đổi màu border</h3>
+                <p>Viền chuyển xanh để báo vùng đang được chú ý.</p>
+                <code>border-color</code>
+            </article>
+            <article class="demo-card">
+                <h3 class="text-hover">Đổi màu chữ</h3>
+                <p>Rê chuột lên dòng tiêu đề để đổi màu chữ.</p>
+                <code>color</code>
+            </article>
+            <article class="demo-card">
+                <h3>Gạch dưới liên kết</h3>
+                <p><a class="underline-hover" href="#form-demo">Rê chuột lên liên kết này</a></p>
+                <code>text-decoration</code>
+            </article>
+            <article class="demo-card">
+                <h3>Button sáng màu</h3>
+                <p>Nền nút chuyển sang màu nhạt khi hover.</p>
+                <button class="btn btn-primary" type="button">Di chuột vào tôi</button>
+            </article>
+            <article class="demo-card">
+                <h3>Button đảo màu</h3>
+                <p>Nút viền đổi thành nền xanh và chữ trắng.</p>
+                <button class="btn btn-outline" type="button">Xem hiệu ứng</button>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Highlight hàng trong bảng</h2>
+        <p class="section-intro">Hiệu ứng này giúp người dùng theo dõi đúng hàng dữ liệu khi rê chuột.</p>
+        <table class="sample-table">
+            <thead>
+                <tr><th>Mã SV</th><th>Họ tên</th><th>Trạng thái</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>SV001</td><td>Nguyễn An</td><td>Đã nộp</td></tr>
+                <tr><td>SV002</td><td>Trần Bình</td><td>Chưa nộp</td></tr>
+                <tr><td>SV003</td><td>Lê Chi</td><td>Đã nộp</td></tr>
+                <tr><td>SV004</td><td>Phạm Dũng</td><td>Đang làm</td></tr>
+            </tbody>
+        </table>
+        <p class="hint">Selector chính: <code>tbody tr:hover</code></p>
+    </section>
+
+    <section>
+        <h2>3. Thay đổi con trỏ chuột (cursor)</h2>
+        <p class="section-intro">Di chuột lên từng ô để thử. Con trỏ giúp người dùng đoán được hành động có thể thực hiện.</p>
+        <div class="cursor-grid">
+            <div class="cursor-item cursor-pointer"><strong>pointer</strong><small>Phần tử có thể bấm</small></div>
+            <div class="cursor-item cursor-wait"><strong>wait</strong><small>Đang chờ xử lý</small></div>
+            <div class="cursor-item cursor-text"><strong>text</strong><small>Vùng chọn văn bản</small></div>
+            <div class="cursor-item cursor-not-allowed"><strong>not-allowed</strong><small>Không thể thực hiện</small></div>
+            <div class="cursor-item cursor-help"><strong>help</strong><small>Có thông tin trợ giúp</small></div>
+            <div class="cursor-item cursor-move"><strong>move</strong><small>Có thể di chuyển</small></div>
+            <div class="cursor-item cursor-crosshair"><strong>crosshair</strong><small>Con trỏ dạng chữ thập</small></div>
+            <div class="cursor-item cursor-grab"><strong>grab</strong><small>Có thể nắm/kéo</small></div>
+            <div class="cursor-item cursor-zoom-in"><strong>zoom-in</strong><small>Có thể phóng to</small></div>
+            <div class="cursor-item cursor-default"><strong>default</strong><small>Con trỏ mặc định</small></div>
+        </div>
+        <p class="hint">Lưu ý: đổi cursor chỉ thay đổi dấu hiệu trực quan; nó không tự tạo chức năng bấm, kéo hoặc phóng to.</p>
+    </section>
+
+    <section id="form-demo">
+        <h2>4. Focus và focus-visible trong biểu mẫu</h2>
+        <p class="section-intro">Khi người dùng chọn một ô nhập liệu, viền và vùng sáng giúp xác định vị trí đang nhập.</p>
+        <div class="form-demo">
+            <div class="form-field">
+                <label for="fullname">Họ và tên</label>
+                <input id="fullname" type="text" placeholder="Nhập họ tên...">
+                <p class="hint">Thử bấm vào ô này hoặc dùng phím Tab.</p>
+            </div>
+            <div class="form-field">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="name@example.com">
+                <p class="hint">Hover đổi viền; focus thêm viền xanh và vùng sáng.</p>
+            </div>
+            <div class="form-field">
+                <label for="topic">Chủ đề</label>
+                <select id="topic">
+                    <option>HTML và CSS</option>
+                    <option>JavaScript</option>
+                    <option>UI/UX</option>
+                </select>
+                <p class="hint">Có thể áp dụng hover/focus cho select.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>5. Active, checked và disabled</h2>
+        <p class="section-intro">Các pseudo-class này phản hồi trạng thái tương tác của phần tử.</p>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <h3>:active</h3>
+                <p>Giữ chuột xuống nút để thấy trạng thái nhấn.</p>
+                <button class="btn btn-primary" type="button">Nhấn giữ tôi</button>
+            </div>
+            <div class="demo-card">
+                <h3>:checked</h3>
+                <p>Chọn một mục để xem trạng thái được chọn.</p>
+                <div class="choice-list">
+                    <label class="choice"><input type="radio" name="level" checked><span>Cơ bản</span></label>
+                    <label class="choice"><input type="radio" name="level"><span>Trung bình</span></label>
+                    <label class="choice"><input type="radio" name="level"><span>Nâng cao</span></label>
+                </div>
+            </div>
+            <div class="demo-card">
+                <h3>:disabled</h3>
+                <p>Thành phần bị vô hiệu hóa nên có màu nhạt và con trỏ phù hợp.</p>
+                <div class="disabled-demo">
+                    <input type="text" value="Không thể chỉnh sửa" disabled>
+                    <p><button class="btn" type="button" disabled>Không khả dụng</button></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>6. Một số pseudo-class hữu ích khác</h2>
+        <p class="section-intro">Không chỉ có hover: CSS còn có thể chọn phần tử theo vị trí hoặc trạng thái.</p>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <h3>:first-child / :last-child / :nth-child()</h3>
+                <p>Ví dụ bên dưới: mục đầu có viền xanh, mục cuối có viền xanh lá, mục chẵn có nền xanh nhạt.</p>
+                <div class="status-list">
+                    <div class="status">Mục 1</div>
+                    <div class="status">Mục 2</div>
+                    <div class="status">Mục 3</div>
+                    <div class="status">Mục 4</div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <h3>:focus-within</h3>
+                <p>Khung có thể đổi giao diện khi một phần tử bên trong được focus. Thử bấm vào ô nhập.</p>
+                <div class="focus-within-box" style="padding:12px; border:1px solid #dce4ee; border-radius:8px;">
+                    <label for="inside">Tìm kiếm</label>
+                    <input id="inside" type="text" placeholder="Nhập từ khóa...">
+                </div>
+            </div>
+            <div class="demo-card">
+                <h3>details[open]</h3>
+                <p>Chọn tiêu đề để mở/đóng nội dung mà không cần JavaScript.</p>
+                <details>
+                    <summary>Thông tin thêm</summary>
+                    <p style="margin-bottom:0;">Nội dung chỉ xuất hiện khi phần tử details đang mở. CSS dùng selector <code>details[open]</code>.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>7. Ghi nhớ khi thiết kế UI/UX</h2>
+        <div class="note">
+            <strong>Gợi ý:</strong> Hiệu ứng nên nhẹ và nhất quán. Đừng chỉ dựa vào màu sắc để truyền đạt trạng thái; cần giữ độ tương phản tốt và bảo đảm có thể dùng bàn phím.
+        </div>
+        <ul>
+            <li><code>:hover</code>: khi con trỏ nằm trên phần tử.</li>
+            <li><code>:active</code>: trong lúc phần tử đang được nhấn.</li>
+            <li><code>:focus</code>: khi phần tử nhận focus, thường bằng chuột hoặc bàn phím.</li>
+            <li><code>:focus-visible</code>: hiển thị dấu focus khi trình duyệt cho rằng cần thiết, đặc biệt hữu ích khi dùng bàn phím.</li>
+            <li><code>:checked</code>: checkbox/radio đang được chọn.</li>
+            <li><code>:disabled</code>: phần tử đang bị vô hiệu hóa.</li>
+            <li><code>:first-child</code>, <code>:last-child</code>, <code>:nth-child()</code>: chọn phần tử theo vị trí.</li>
+        </ul>
+    </section>
+</main>
+
+<footer>Demo HTML + CSS thuần dành cho thực hành trên lớp.</footer>
+
+<style>
+    .focus-within-box:focus-within {
+        border-color: #2878c8 !important;
+        background: #f1f7ff;
+        box-shadow: 0 0 0 3px rgba(40, 120, 200, 0.10);
+    }
+</style>
+</body>
+</html>

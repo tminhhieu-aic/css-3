@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Student Portal</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="students.html">Students</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <h2>Menu</h2>
+            <a href="index.html">Home</a>
+            <a href="students.html">Students</a>
+            <a href="contact.html">Contact</a>
+        </aside>
+
+        <main class="content">
+            <p class="breadcrumb">Student Portal / Contact</p>
+            <h1 class="page-heading">Contact the Student Office</h1>
+            <p>Send a message if you need help with courses or student services.</p>
+            <div class="form-box"><form>
+                <div class="form-row"><label for="name">Full name</label><input id="name" type="text" placeholder="Enter your name"></div>
+                <div class="form-row"><label for="email">Email address</label><input id="email" type="email" placeholder="name@example.com"></div>
+                <div class="form-row"><label for="topic">Topic</label><select id="topic"><option>Course information</option><option>Assignments</option><option>Grades</option><option>Other</option></select></div>
+                <div class="form-row"><label for="message">Message</label><textarea id="message" placeholder="Type your message"></textarea></div>
+                <button class="button" type="button">Send message</button>
+            </form></div>
+        </main>
+    </div>
+
+</body>
+</html>
