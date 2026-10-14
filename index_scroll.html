@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Max Width and Max Height Demo</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .box {
+            border: 2px solid steelblue;
+            padding: 10px;
+            margin-bottom: 25px;
+            background-color: #f0f8ff;
+        }
+
+        /* Demo max-height */
+        .height-demo {
+            width: 300px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        /* Demo max-width */
+        .width-demo {
+            max-width: 350px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .content {
+            background-color: lightyellow;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSS Overflow Demo</h1>
+
+    <h2>1. max-height + overflow-y</h2>
+    <div class="box height-demo">
+        <p class="content">Content 1: Lorem ipsum dolor sit amet.</p>
+        <p class="content">Content 2: Lorem ipsum dolor sit amet.</p>
+        <p class="content">Content 3: Lorem ipsum dolor sit amet.</p>
+        <p class="content">Content 4: Lorem ipsum dolor sit amet.</p>
+        <p class="content">Content 5: Lorem ipsum dolor sit amet.</p>
+        <p class="content">Content 6: Lorem ipsum dolor sit amet.</p>
+    </div>
+
+    <h2>2. max-width + overflow-x</h2>
+    <div class="box width-demo">
+        This is a very long line of content.
+        Scroll horizontally to read the entire sentence.
+        This content is intentionally made very wide.
+        This content continues to the right.
+    </div>
+</body>
+</html>
